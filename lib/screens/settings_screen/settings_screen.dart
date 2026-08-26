@@ -122,9 +122,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final response = await _apiServices.patchRequest(url: CUrlStrings.deviceRevokeUrl, data: {}, authToken: deviceToken);
 
       switch (response.statusCode) {
-        case 200: {
-          _successMessage = response.data['msg'];
-        }
+        // case 200: {
+        //   // _successMessage = response.data['msg'];
+        // }
+        case 200: appInfoProvider.revokeDevice();
         default: _errorMessage = response.data;
       }
 
@@ -133,7 +134,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     } finally {
       setState(() => _isLoading = false);
       await Future.delayed(Duration(seconds: 2));
-      if (mounted) _successMessage != null ? appInfoProvider.revokeDevice() : setState(() => _errorMessage = null,);
+      if (mounted) setState(() => _errorMessage = null,);
+      // if (mounted) _successMessage != null ? appInfoProvider.revokeDevice() : setState(() => _errorMessage = null,);
     }
   }
   // - - - F U N C T I O N S
