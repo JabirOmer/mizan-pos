@@ -166,58 +166,63 @@ class _PosProductsDisplayWidgetState extends State<PosProductsDisplayWidget> {
         return Stack(
           children: [
             // - - - M A I N _ D I S P L A Y
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: CSizes.largeGap),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  SizedBox(height: CSizes.largeGap,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: CSizes.largeGap,),
 
-                  UiTitleWidget(
-                    text: 'POS - Screen',
-                    defaultText: true,
-                    capitalizeWords: true,
-                    bigger: true,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: CSizes.largeGap),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      UiTitleWidget(
+                        text: 'POS - Screen',
+                        defaultText: true,
+                        capitalizeWords: true,
+                        bigger: true,
+                      ),
+                  
+                      SizedBox(height: CSizes.largeGap,),
+                    
+                      // Top Section
+                      topSectionMethod(),
+                      
+                      // Categories
+                      if ( widget.categories.isNotEmpty && _searchController.text.isEmpty ) categoriesMethod(),
+                          
+                      SizedBox(height: CSizes.largeGap,),
+                  
+                      // Products
+                      if (_filteredProductList.isEmpty) UiNoDataFounded(
+                      title: 'no products are founded',
+                      buttonText: 'search again',
+                      onButtonClick: widget.onRefresh,
+                      ),
+                    ],
                   ),
-
-                  SizedBox(height: CSizes.largeGap,),
+                ),
+            
+            
+                Expanded(
+                  child: _filteredProductList.isNotEmpty ? productsMethod(crossAxisCount) : SizedBox(),
+                )
+            
+                // Expanded(
+                //   child: SingleChildScrollView(
+                //     child: Column(
+                //       children: [
+                //         if (_filteredProductList.isNotEmpty) productsMethod(crossAxisCount),
+                //         SizedBox(height: CSizes.largeGap,),
+                //       ],
+                //     ),
+                //   ),
+                // )
                 
-                  // Top Section
-                  topSectionMethod(),
-                  
-                  // Categories
-                  if ( widget.categories.isNotEmpty && _searchController.text.isEmpty ) categoriesMethod(),
-        
-        
-                  SizedBox(height: CSizes.largeGap,),
-              
-                  // Products
-                  if (_filteredProductList.isEmpty) UiNoDataFounded(
-                  title: 'no products are founded',
-                  buttonText: 'search again',
-                  onButtonClick: widget.onRefresh,
-                  ),
-
-                  Expanded(
-                    child: _filteredProductList.isNotEmpty ? productsMethod(crossAxisCount) : SizedBox(),
-                  )
-
-                  // Expanded(
-                  //   child: SingleChildScrollView(
-                  //     child: Column(
-                  //       children: [
-                  //         if (_filteredProductList.isNotEmpty) productsMethod(crossAxisCount),
-                  //         SizedBox(height: CSizes.largeGap,),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // )
-                  
-
-
-
-                ],
-              ),
+            
+            
+            
+              ],
             ),
         
             // - - - S C A N N E R
@@ -373,7 +378,11 @@ class _PosProductsDisplayWidgetState extends State<PosProductsDisplayWidget> {
     _productsProvider = Provider.of<ProductsProvider>(context);
 
     return AlignedGridView.count(
-      padding: EdgeInsets.only(bottom: CSizes.largeGap),
+      padding: EdgeInsets.only(
+        left: CSizes.largeGap,
+        right: CSizes.largeGap,
+        bottom: CSizes.largeGap,
+      ),
       crossAxisCount: crossAxisCount(),
       crossAxisSpacing: CSizes.mediumGap,
       mainAxisSpacing: CSizes.mediumGap, 
@@ -389,7 +398,29 @@ class _PosProductsDisplayWidgetState extends State<PosProductsDisplayWidget> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
-              color: CColors.white
+              color: CColors.white,
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.16),
+              //     blurRadius: 4,
+              //     spreadRadius: 0,
+              //     offset: Offset(0, 1),
+              //   )
+              // ]
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  blurRadius: 15,
+                  spreadRadius: -3,
+                  offset: Offset(0, 10),
+                ),
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.05),
+                  blurRadius: 6,
+                  spreadRadius: -2,
+                  offset: Offset(0, 4),
+                )
+              ]
             ),
             padding: EdgeInsets.symmetric(
               vertical: CSizes.mediumGap,

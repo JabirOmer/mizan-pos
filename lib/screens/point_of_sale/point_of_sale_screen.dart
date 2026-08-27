@@ -87,10 +87,10 @@ class _PointOfSaleScreenState extends State<PointOfSaleScreen> {
                   ),
                 ),
 
-                Container(
-                  width: 1,
-                  color: CColors.whiteShade2,
-                ),
+                // Container(
+                //   width: 1,
+                //   color: CColors.whiteShade2,
+                // ),
             
                 // // - - - O R D E R _ L I S T _ D I S P L A Y
                 PosOrderDisplayWidget(

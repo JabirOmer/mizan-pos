@@ -309,6 +309,20 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
               border: Border.all(width: 1, color: CColors.whiteShade2.withValues(alpha: 1)),
               color: CColors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                  blurRadius: 15,
+                  spreadRadius: -3,
+                  offset: Offset(0, 10),
+                ),
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.05),
+                  blurRadius: 6,
+                  spreadRadius: -2,
+                  offset: Offset(0, 4),
+                )
+              ]
             ),
             padding: EdgeInsets.symmetric(
               vertical: CSizes.mediumGap,

@@ -14,7 +14,7 @@ class PosOrderListDisplayWidget extends StatelessWidget {
   final List<ProductModel> products;
   final void Function(ProductModel product) onIncrease;
   final void Function(ProductModel product) onDecrease;
-  final void Function(ProductModel product, bool isIcrementing) onLongPressStart;
+  final void Function(ProductModel product, bool isIncrement) onLongPressStart;
   final void Function() onLongPressEnd;
   final void Function(ProductModel product) onProductClick;
 
@@ -45,7 +45,7 @@ class PosOrderListDisplayWidget extends StatelessWidget {
             availableQty: product.stock,
             onIncreaseClick: () => onIncrease(product),
             onDecreaseClick: () => onDecrease(product),
-            onLongPressStart: (increment) => onLongPressStart(product, increment),
+            onLongPressStart: (isIncrement) => onLongPressStart(product, isIncrement),
             onLongPressEnd: onLongPressEnd,
           ),
         );
@@ -62,7 +62,7 @@ class PosOrderListDisplayWidget extends StatelessWidget {
     required int availableQty,
     required void Function() onIncreaseClick,
     required void Function() onDecreaseClick,
-    required void Function(bool increment) onLongPressStart,
+    required void Function(bool isIncrement) onLongPressStart,
     required void Function() onLongPressEnd,
   }) {
     return Container(

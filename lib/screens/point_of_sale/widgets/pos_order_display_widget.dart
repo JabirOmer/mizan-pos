@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mizan_pos/constants/colors.dart';
@@ -28,15 +30,20 @@ class PosOrderDisplayWidget extends StatefulWidget {
 
 class _PosOrderDisplayWidgetState extends State<PosOrderDisplayWidget> {
   late ProductsProvider _productsProvider;
+  // Timer? _rapidCallTimer;
 
   
   
   // - - - - - - >>
   // - - - F U N C T I O N S
+  // Future<void> _startRapidCall(ProductModel product, bool isIncrement) async {
+  //   _productsProvider = Provider.of<ProductsProvider>(context, listen: false);
 
-  
-  // - - - C R E A T E _ S E S S I O N
-  // Future<void> _createSession() async {}
+  //   isIncrement ? await _productsProvider.incrementItemInOrderSession(product) : 
+  //   await _productsProvider.decrementItemInOrderSession(product);
+  // }
+
+  // void _endRapidCall() {}
 
 
   // - - - D E L E T E _ S E S S I O N
@@ -49,7 +56,7 @@ class _PosOrderDisplayWidgetState extends State<PosOrderDisplayWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: 400,
-      color: CColors.whiteShade1,
+      color: CColors.white,
       padding: EdgeInsets.only(
         top: CSizes.xLargeGap
       ),
@@ -82,9 +89,13 @@ class _PosOrderDisplayWidgetState extends State<PosOrderDisplayWidget> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              UiTitleWidget(
-                text: 'order list',
-                textAlign: TextAlign.center,
+              Padding(
+                padding: EdgeInsets.only(left: CSizes.largeGap),
+                child: UiTitleWidget(
+                  text: 'order list',
+                  bigger: true,
+                  // textAlign: TextAlign.center,
+                ),
               ),
     
               SizedBox(height: CSizes.mediumGap,),
@@ -119,7 +130,8 @@ class _PosOrderDisplayWidgetState extends State<PosOrderDisplayWidget> {
                   products: productsProvider.productList,
                   onIncrease: (product) => productsProvider.incrementItemInOrderSession(product),
                   onDecrease: (product) => productsProvider.decrementItemInOrderSession(product),
-                  onLongPressStart: (product, isIcrementing) {},
+                  // onLongPressStart: (product, is) => startRapid,
+                  onLongPressStart: (_, _) => {},
                   onLongPressEnd: () {},
                   onProductClick: (product) => widget.onProductClick(product),
                 ),

@@ -357,7 +357,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             border: Border.all(width: 1, color: isDangerZone ? CColors.red : CColors.white, strokeAlign: BorderSide.strokeAlignOutside),
             borderRadius: BorderRadius.circular(CSizes.largeGap)
           ),
-          padding: EdgeInsets.symmetric(horizontal: CSizes.largeGap, vertical: CSizes.smallGap),
           child: ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -384,7 +383,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
       child: Container(
         color: CColors.transparent,
-        padding: EdgeInsets.symmetric(vertical: CSizes.largeGap),
+        // padding: EdgeInsets.symmetric(vertical: CSizes.largeGap),
+        padding: EdgeInsets.symmetric(horizontal: CSizes.largeGap, vertical: CSizes.largeGap),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
