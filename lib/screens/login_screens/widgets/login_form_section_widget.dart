@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mizan_pos/constants/shadows.dart';
 import 'package:provider/provider.dart';
 import 'package:mizan_pos/constants/colors.dart';
 import 'package:mizan_pos/constants/icons.dart';
@@ -42,13 +43,14 @@ class LoginFormSectionWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: CSizes.xLargeGap),
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: 500
+                maxWidth: 600
               ),
               child: Container(
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                   color: CColors.white,
-                  borderRadius: BorderRadius.circular(CSizes.smallRadius + 10)
+                  borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
+                  boxShadow: CShadows.shadow1
                 ),
                 padding: EdgeInsets.symmetric(
                   vertical: CSizes.xLargeGap,

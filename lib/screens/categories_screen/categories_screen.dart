@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:mizan_pos/constants/colors.dart';
 import 'package:mizan_pos/constants/icons.dart';
+import 'package:mizan_pos/constants/shadows.dart';
 import 'package:mizan_pos/constants/sizes.dart';
 import 'package:mizan_pos/helpers/helper_functions.dart';
 import 'package:mizan_pos/models/product_category_model.dart';
@@ -307,22 +308,23 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
-              border: Border.all(width: 1, color: CColors.whiteShade2.withValues(alpha: 1)),
+              // border: Border.all(width: 1, color: CColors.whiteShade2.withValues(alpha: 1)),
               color: CColors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                  blurRadius: 15,
-                  spreadRadius: -3,
-                  offset: Offset(0, 10),
-                ),
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.05),
-                  blurRadius: 6,
-                  spreadRadius: -2,
-                  offset: Offset(0, 4),
-                )
-              ]
+              boxShadow: CShadows.shadow1
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.1),
+              //     blurRadius: 15,
+              //     spreadRadius: -3,
+              //     offset: Offset(0, 10),
+              //   ),
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.05),
+              //     blurRadius: 6,
+              //     spreadRadius: -2,
+              //     offset: Offset(0, 4),
+              //   )
+              // ]
             ),
             padding: EdgeInsets.symmetric(
               vertical: CSizes.mediumGap,

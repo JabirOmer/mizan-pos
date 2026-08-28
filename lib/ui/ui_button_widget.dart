@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mizan_pos/constants/colors.dart';
+import 'package:mizan_pos/constants/shadows.dart';
 import 'package:mizan_pos/constants/sizes.dart';
 import 'package:mizan_pos/ui/ui_title_widget.dart';
 
@@ -15,6 +16,7 @@ class UiButtonWidget extends StatelessWidget {
   final double? horizontalPadding;
   final void Function() onClick;
   final bool tranparent;
+  final bool addShadow;
   final Color? color;
   final Color? backgroundColor;
   final Color? borderColor;
@@ -35,6 +37,7 @@ class UiButtonWidget extends StatelessWidget {
     this.horizontalPadding,
     required this.onClick,
     this.tranparent = false,
+    this.addShadow = false,
     this.color,
     this.backgroundColor,
     this.borderColor,
@@ -60,7 +63,8 @@ class UiButtonWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: isDisabled ? CColors.whiteShade2 : backgroundColor ?? (tranparent ? CColors.transparent : CColors.primaryColor),
             borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
-            border: Border.all(width: 1, color: borderColor ?? ((tranparent || isDisabled) ? CColors.whiteShade2 : color ?? buttonColor))
+            border: Border.all(width: 1, color: borderColor ?? ((tranparent || isDisabled) ? CColors.whiteShade2 : color ?? buttonColor)),
+            boxShadow: addShadow ? CShadows.shadow1 : null
           ),
           padding: EdgeInsets.symmetric(
             vertical: vericalPadding ?? CSizes.mediumGap,

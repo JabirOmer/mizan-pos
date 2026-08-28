@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:mizan_pos/constants/shadows.dart';
 import 'package:provider/provider.dart';
 import 'package:mizan_pos/constants/colors.dart';
 import 'package:mizan_pos/constants/icons.dart';
@@ -407,20 +408,21 @@ class _PosProductsDisplayWidgetState extends State<PosProductsDisplayWidget> {
               //     offset: Offset(0, 1),
               //   )
               // ]
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                  blurRadius: 15,
-                  spreadRadius: -3,
-                  offset: Offset(0, 10),
-                ),
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.05),
-                  blurRadius: 6,
-                  spreadRadius: -2,
-                  offset: Offset(0, 4),
-                )
-              ]
+              boxShadow: CShadows.shadow1
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.1),
+              //     blurRadius: 15,
+              //     spreadRadius: -3,
+              //     offset: Offset(0, 10),
+              //   ),
+              //   BoxShadow(
+              //     color: Color.fromRGBO(0, 0, 0, 0.05),
+              //     blurRadius: 6,
+              //     spreadRadius: -2,
+              //     offset: Offset(0, 4),
+              //   )
+              // ]
             ),
             padding: EdgeInsets.symmetric(
               vertical: CSizes.mediumGap,
