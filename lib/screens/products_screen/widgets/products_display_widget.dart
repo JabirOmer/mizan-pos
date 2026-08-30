@@ -101,125 +101,137 @@ class _ProductsDisplayWidgetState extends State<ProductsDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return CustomScrollView(
+      slivers: [
 
         // - - - T O P _ S E C T I O N
-        IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 300),
-                    child: UiTextFieldWidget(
-                      label: 'Search Name or Barcode',
-                      defaultLabel: true,
-                      textController: _searchController,
-                      onChange: (value) => _handleSearch(value),
+        SliverToBoxAdapter(
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 300),
+                      child: UiTextFieldWidget(
+                        label: 'Search Name or Barcode',
+                        defaultLabel: true,
+                        textController: _searchController,
+                        onChange: (value) => _handleSearch(value),
+                      ),
                     ),
-                  ),
-
-                  if (_searchController.text.isNotEmpty) Container(
-                    margin: EdgeInsets.only(left: CSizes.mediumGap),
-                    child: UiButtonWidget(
-                      icon: CIcons.eraseIcon,
+          
+                    if (_searchController.text.isNotEmpty) Container(
+                      margin: EdgeInsets.only(left: CSizes.mediumGap),
+                      child: UiButtonWidget(
+                        icon: CIcons.eraseIcon,
+                        vericalPadding: CSizes.smallGap,
+                        horizontalPadding: CSizes.smallGap,
+                        onClick: _handleSearchReset,
+                      ),
+                    ),
+          
+                    SizedBox(width: CSizes.mediumGap,),
+                
+                    UiButtonWidget(
+                      icon: CIcons.refreshIcon,
                       vericalPadding: CSizes.smallGap,
                       horizontalPadding: CSizes.smallGap,
-                      onClick: _handleSearchReset,
+                      tranparent: true,
+                      // borderColor: CColors.whiteShade3,
+                      onClick: _refreshData
+                    )
+                  ],
+                ),
+          
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    UiButtonWidget(
+                      text: 'register product',
+                      icon: CIcons.addIcon, 
+                      vericalPadding: CSizes.smallGap,
+                      onClick: _onRegisterClick,
+                      isDisabled: !_canEdit,
+                    ), 
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        
+        SliverToBoxAdapter(
+          child: SizedBox(height: CSizes.largeGap,)
+        ),
+
+
+        // - - - P R O D U C T S _ O V E R V I E W
+        SliverToBoxAdapter(
+          child: Consumer<ProductsProvider>(
+            builder: (context, provider, child) {
+              if (!provider.isLoading && provider.errorMessage == null) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints( minWidth: constraints.maxWidth ),
+                            child: _productsOverviewMethod(
+                              totalProducts: provider.productList,
+                              lowStockProducts: provider.lowStockProducts,
+                              outOfStockProducts: provider.outOfStockProducts,
+                              expiringProducts: provider.expiringProducts,
+                              expiredProducts: provider.expiredProducts
+                            ),
+                          )
+                        );
+                      }
                     ),
-                  ),
+                    
+          
+                    SizedBox(height: CSizes.largeGap,),
+                  ],
+                );
+              }
+              return SizedBox();
+            },
+          ),
+        ),
 
-                  SizedBox(width: CSizes.mediumGap,),
-              
-                  UiButtonWidget(
-                    icon: CIcons.refreshIcon,
-                    vericalPadding: CSizes.smallGap,
-                    horizontalPadding: CSizes.smallGap,
-                    tranparent: true,
-                    // borderColor: CColors.whiteShade3,
-                    onClick: _refreshData
-                  )
-                ],
-              ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  UiButtonWidget(
-                    text: 'register product',
-                    icon: CIcons.addIcon, 
-                    vericalPadding: CSizes.smallGap,
-                    onClick: _onRegisterClick,
-                    isDisabled: !_canEdit,
-                  ), 
-                ],
-              ),
+        if (_overviewTitle != null && _overviewProducts != null) SliverToBoxAdapter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: CSizes.largeGap,),
+          
+              UiTitleWidget(text: '${_overviewTitle!} products', bigger: true,),
+          
+              SizedBox(height: CSizes.largeGap,),
             ],
           ),
         ),
 
-        SizedBox(height: CSizes.largeGap,),
-
-
-        // - - - P R O D U C T S _ O V E R V I E W
-        Consumer<ProductsProvider>(
-          builder: (context, provider, child) {
-            if (!provider.isLoading && provider.errorMessage == null) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      return SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints( minWidth: constraints.maxWidth ),
-                          child: _productsOverviewMethod(
-                            totalProducts: provider.productList,
-                            lowStockProducts: provider.lowStockProducts,
-                            outOfStockProducts: provider.outOfStockProducts,
-                            expiringProducts: provider.expiringProducts,
-                            expiredProducts: provider.expiredProducts
-                          ),
-                        )
-                      );
-                    }
-                  ),
-                  
-
-                  SizedBox(height: CSizes.largeGap,),
-                ],
-              );
-            }
-            return SizedBox();
-          },
-        ),
-
-
-        if (_overviewTitle != null && _overviewProducts != null) Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(height: CSizes.largeGap,),
-
-            UiTitleWidget(text: '${_overviewTitle!} products', bigger: true,),
-
-            SizedBox(height: CSizes.largeGap,),
-          ],
-        ),
-
         
         // - - - P R O D U C T S _ T A B L E
-        Expanded(
+        SliverFillRemaining(
+          hasScrollBody: true,
           child: ProductsDataTable(
             productList: _overviewProducts ?? (_searchController.text.isNotEmpty ? _filteredProductList : widget.products),
             onSearchAgainClick: _handleSearchReset,
           )
         ),
 
-        SizedBox(height: CSizes.largeGap,),
+        SliverToBoxAdapter(
+          child: SizedBox(height: CSizes.largeGap,)
+        ),
       ],
     );
   }

@@ -23,11 +23,14 @@ class ProductsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(productList.length >= 10 ? 10 : defaultRowsPerPage);
     return Theme(
       data: Theme.of(context).copyWith(cardTheme: CardThemeData(color: CColors.red, elevation: 0)),
       child: Theme(
         data: Theme.of(context).copyWith(cardTheme: CardThemeData(color: CColors.white, elevation: 0)),
         child: PaginatedDataTable2(
+
+          // Empty
           empty: UiNoDataFounded(
             title: 'no products are founded',
             noDataAnimation: CAnimations.emptyList,
@@ -37,6 +40,7 @@ class ProductsDataTable extends StatelessWidget {
           ),
       
 
+          // Decoration
           headingRowDecoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [CColors.primaryColor, CColors.blackShade1],
@@ -48,15 +52,17 @@ class ProductsDataTable extends StatelessWidget {
             )
           ),
           
-          rowsPerPage: productList.length >= 30 ? 30 : defaultRowsPerPage,
+          // rowsPerPage: productList.length >= 30 ? 30 : defaultRowsPerPage,
           headingRowHeight: 80,
           dataRowHeight: 50,
+          autoRowsToHeight: true,
           
           showFirstLastButtons: true,
           minWidth: 1000,
           columnSpacing: CSizes.mediumGap,
           renderEmptyRowsInTheEnd: false,
         
+          // Columns
           columns: [
             DataColumn2(
               label: FittedBox(child: UiTitleWidget(text: '#', color: CColors.whiteShade1, medium: true,)),
