@@ -136,8 +136,8 @@ class _MyWidgetState extends State<PaymentsScreen> {
                       if (provider.paymentMethods.isEmpty) {
                         return UiNoDataFounded(
                           title: 'no payment is registered',
-                          buttonText: 'register now',
-                          onButtonClick: _toggleShowPaymentRegisterPopup,
+                          buttonText: _canEdit ? 'register now' : null,
+                          onButtonClick: _canEdit ? _toggleShowPaymentRegisterPopup : null,
                         );
                       }
 
@@ -228,28 +228,16 @@ class _MyWidgetState extends State<PaymentsScreen> {
                 ),
               ),
 
-              SizedBox(width: CSizes.mediumGap,),
+              if (_searchController.text.isNotEmpty) Container(
+                margin: EdgeInsets.only(left: CSizes.mediumGap,),
+                child: UiButtonWidget(
+                  icon: CIcons.eraseIcon,
+                  vericalPadding: CSizes.smallGap,
+                  horizontalPadding: CSizes.smallGap,
+                  onClick: _handleSearchReset,
+                ),
+              ),
 
-              if (_searchController.text.isNotEmpty) UiButtonWidget(
-                icon: CIcons.eraseIcon,
-                vericalPadding: CSizes.smallGap,
-                horizontalPadding: CSizes.smallGap,
-                onClick: _handleSearchReset,
-              )
-            ],
-          ),
-      
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              UiButtonWidget(
-                text: 'add new method',
-                icon: CIcons.addIcon, 
-                vericalPadding: CSizes.smallGap,
-                isDisabled: !_canEdit,
-                onClick: _toggleShowPaymentRegisterPopup
-              ), 
-          
               SizedBox(width: CSizes.mediumGap,),
           
               UiButtonWidget(
@@ -257,10 +245,17 @@ class _MyWidgetState extends State<PaymentsScreen> {
                 vericalPadding: CSizes.smallGap,
                 horizontalPadding: CSizes.smallGap,
                 tranparent: true,
-                borderColor: CColors.primaryColor,
                 onClick: _reloadPaymentsData
               )
             ],
+          ),
+      
+          if (_canEdit) UiButtonWidget(
+            text: 'add new method',
+            icon: CIcons.addIcon, 
+            vericalPadding: CSizes.smallGap,
+            isDisabled: !_canEdit,
+            onClick: _toggleShowPaymentRegisterPopup
           ),
         ],
       ),

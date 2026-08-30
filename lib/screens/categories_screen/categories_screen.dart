@@ -119,7 +119,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 SizedBox(height: CSizes.largeGap,),
             
                 UiTitleWidget(
-                  text: 'Users',
+                  text: 'Categories',
                   bigger: true,
                 ),
             
@@ -242,28 +242,16 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 ),
               ),
 
-              SizedBox(width: CSizes.mediumGap,),
+              if (_searchController.text.isNotEmpty) Container(
+                margin: EdgeInsets.only(left: CSizes.mediumGap),
+                child: UiButtonWidget(
+                  icon: CIcons.eraseIcon,
+                  vericalPadding: CSizes.smallGap,
+                  horizontalPadding: CSizes.smallGap,
+                  onClick: _handleSearchReset,
+                ),
+              ),
 
-              if (_searchController.text.isNotEmpty) UiButtonWidget(
-                icon: CIcons.eraseIcon,
-                vericalPadding: CSizes.smallGap,
-                horizontalPadding: CSizes.smallGap,
-                onClick: _handleSearchReset,
-              )
-            ],
-          ),
-      
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              UiButtonWidget(
-                text: 'add new category',
-                icon: CIcons.addIcon, 
-                vericalPadding: CSizes.smallGap,
-                isDisabled: !_canEdit,
-                onClick: onRegisterClick
-              ), 
-          
               SizedBox(width: CSizes.mediumGap,),
           
               UiButtonWidget(
@@ -271,10 +259,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 vericalPadding: CSizes.smallGap,
                 horizontalPadding: CSizes.smallGap,
                 tranparent: true,
-                borderColor: CColors.primaryColor,
+                // borderColor: CColors.primaryColor,
                 onClick: refreshCategoriesData
               )
             ],
+          ),
+      
+          if (_canEdit) UiButtonWidget(
+            text: 'add new category',
+            icon: CIcons.addIcon, 
+            vericalPadding: CSizes.smallGap,
+            isDisabled: !_canEdit,
+            onClick: onRegisterClick
           ),
         ],
       ),
@@ -304,27 +300,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         final totalProducts = productList.where((p) => p.categoryId == category.categoryId).length;
 
         return GestureDetector(
-          onTap: () => seeEditClick(category),
+          onTap: () => _canEdit ? seeEditClick(category) : {},
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(CSizes.smallRadius + 10),
               // border: Border.all(width: 1, color: CColors.whiteShade2.withValues(alpha: 1)),
               color: CColors.white,
               boxShadow: CShadows.shadow1
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: Color.fromRGBO(0, 0, 0, 0.1),
-              //     blurRadius: 15,
-              //     spreadRadius: -3,
-              //     offset: Offset(0, 10),
-              //   ),
-              //   BoxShadow(
-              //     color: Color.fromRGBO(0, 0, 0, 0.05),
-              //     blurRadius: 6,
-              //     spreadRadius: -2,
-              //     offset: Offset(0, 4),
-              //   )
-              // ]
             ),
             padding: EdgeInsets.symmetric(
               vertical: CSizes.mediumGap,

@@ -71,7 +71,7 @@ class ProductDetailsDisplayWidget extends StatelessWidget {
                                 bigger: true,
                               ),
 
-                              UiButtonWidget(
+                              if (canEdit)  UiButtonWidget(
                                 vericalPadding: CSizes.smallGap,
                                 text: 'edit',
                                 icon: CIcons.editIcon,
@@ -118,16 +118,14 @@ class ProductDetailsDisplayWidget extends StatelessWidget {
                     // - - - - - - >>
           
           
-                    SizedBox(height: CSizes.largeGap,),
-          
-          
                     // - - - - - - >>
                     // - - - P R I C I N G
-                    Container(
+                    if (canEdit) Container(
                       decoration: BoxDecoration(
                         color: CColors.white,
                         borderRadius: BorderRadius.circular(CSizes.smallRadius + 10)
                       ),
+                      margin: EdgeInsets.only(top: CSizes.largeGap),
                       padding: EdgeInsets.all(CSizes.largeGap),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
