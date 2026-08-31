@@ -41,7 +41,7 @@ class SideBarWidget extends StatelessWidget {
     // final String businessName = appInfoProvider.deviceData?.businessName ?? '---';
 
     return Container(
-      width: miniSidebar ? 86 : 300,
+      width: miniSidebar ? 86 : 250,
       // padding: EdgeInsets.symmetric(horizontal: CSizes.mediumGap),
       decoration: BoxDecoration(
         color: CColors.white,
